@@ -1,0 +1,122 @@
+{
+  "slug": "financial-services",
+  "type": "industry",
+  "name": "Financial Services",
+  "tagline": "Compress KYC, underwriting, and ops reviews with auditable agent workflows.",
+  "overview": "Banks and fintechs still rely on analysts for document-heavy KYC, credit memos, and exception handling. Agentic systems can draft decisions with full audit trails while humans retain final authority.",
+  "opportunityScore": 88,
+  "painPoints": [
+    "KYC/AML reviews bottlenecked by document chasing",
+    "Credit memo preparation takes days of analyst time",
+    "Ops exceptions pile up across disconnected core systems"
+  ],
+  "strategicImpact": [
+    "40–60% faster KYC case cycle time",
+    "50% less analyst time on first-draft credit memos",
+    "Lower false-positive alert fatigue in AML queues"
+  ],
+  "singleAgents": [
+    {
+      "name": "KYC Packet Assembler",
+      "role": "Collects, validates, and structures onboarding documents",
+      "trigger": "New customer application submitted",
+      "toolStack": ["IDV API", "OCR", "Sanctions screening", "Case management API"],
+      "output": "Complete KYC dossier with exception flags",
+      "roi": "25–40 min saved per onboarding case"
+    },
+    {
+      "name": "Credit Memo Drafter",
+      "role": "Builds first-pass underwriting narratives from structured + unstructured data",
+      "trigger": "Loan application reaches underwriting queue",
+      "toolStack": ["Core banking SQL", "Bureau APIs", "Financial statement parsers", "Policy RAG"],
+      "output": "Draft credit memo + risk scorecard",
+      "roi": "3–6 hours saved per mid-market deal"
+    },
+    {
+      "name": "AML Alert Triage Agent",
+      "role": "Ranks alerts and drafts investigation narratives",
+      "trigger": "Transaction monitoring alert created",
+      "toolStack": ["TM platform API", "Graph entity resolution", "News/OSINT search", "Case notes writer"],
+      "output": "Prioritized alert with recommended disposition",
+      "roi": "30% reduction in low-value alert handling time"
+    },
+    {
+      "name": "Ops Exception Resolver",
+      "role": "Diagnoses failed payments and proposes remediation",
+      "trigger": "Payment exception or return code",
+      "toolStack": ["Payments ledger", "Customer CRM", "Rules engine", "Secure messaging"],
+      "output": "Remediation plan or auto-retry when policy allows",
+      "roi": "20–35% faster exception clearance"
+    }
+  ],
+  "multiAgent": {
+    "name": "Commercial Lending Desk",
+    "description": "A supervised agent team that moves a commercial loan from intake to credit committee package.",
+    "supervisor": {
+      "name": "Lending Desk Supervisor",
+      "responsibilities": "Owns deal status, enforces credit policy gates, and decides when human underwriters must intervene.",
+      "routingLogic": "Intake → Document Agent; financials ready → Spreading Agent; risk signals → Policy Agent; package complete → Memo Agent."
+    },
+    "subAgents": [
+      {
+        "name": "Document Intake Agent",
+        "role": "Completeness and extraction",
+        "responsibilities": ["Checklist missing docs", "Extract key fields", "Request customer uploads"],
+        "contextHandoff": "Normalized deal data room index"
+      },
+      {
+        "name": "Financial Spreading Agent",
+        "role": "Statement spreading and ratios",
+        "responsibilities": ["Spread financials", "Compute covenants", "Flag anomalies"],
+        "contextHandoff": "Spread workbook + anomaly list"
+      },
+      {
+        "name": "Policy Guard Agent",
+        "role": "Credit policy compliance",
+        "responsibilities": ["Map deal to policy", "Identify exceptions", "Suggest conditions"],
+        "contextHandoff": "Policy fit matrix for supervisor"
+      },
+      {
+        "name": "Committee Memo Agent",
+        "role": "Package assembly",
+        "responsibilities": ["Draft narrative", "Attach exhibits", "Prepare vote packet"],
+        "contextHandoff": "Committee-ready memo awaiting underwriter approval"
+      }
+    ],
+    "conflictResolution": "Policy exceptions always require human approval; conflicting financial extracts trigger dual-source reconciliation; model confidence below threshold freezes progression."
+  },
+  "workflow": [
+    {
+      "id": "input",
+      "label": "Input",
+      "description": "Capture application, entity graph, and uploaded financial documents."
+    },
+    {
+      "id": "reason",
+      "label": "Reason",
+      "description": "Supervisor builds a deal plan, risk hypotheses, and required evidence list."
+    },
+    {
+      "id": "tools",
+      "label": "Tool Execution",
+      "description": "Specialists extract, spread, screen, and draft using approved banking tools."
+    },
+    {
+      "id": "hitl",
+      "label": "Human-in-the-Loop",
+      "description": "Underwriter reviews exceptions, edits memo, and signs off for committee."
+    },
+    {
+      "id": "output",
+      "label": "Output",
+      "description": "Committee package published; decision logged with full agent audit trail."
+    }
+  ],
+  "integrations": {
+    "apis": ["Core banking APIs", "Experian/Equifax", "Alloy/Persona IDV", "Salesforce Financial Services Cloud"],
+    "webhooks": ["Application status events", "TM alert webhooks", "DocuSign completion callbacks"],
+    "vectorDbs": ["Credit policy manuals", "Historical memo corpus", "AML typology library"],
+    "legacySystems": ["Mainframe core", "On-prem imaging systems", "SWIFT/payment hubs"],
+    "security": ["SOX controls", "Model risk management logs", "PII vaulting", "Maker-checker enforcement"]
+  }
+}

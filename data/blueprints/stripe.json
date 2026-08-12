@@ -1,0 +1,122 @@
+{
+  "slug": "stripe",
+  "type": "company",
+  "name": "Stripe",
+  "tagline": "Agentic systems for payments ops, support, and financial crime workflows.",
+  "overview": "Stripe’s platform generates dense operational signal across payments, billing, and risk. Agents can compress investigation loops while keeping money-movement actions strictly gated.",
+  "opportunityScore": 93,
+  "painPoints": [
+    "Support and sales engineers reconstruct payment timelines manually",
+    "Fraud and disputes require multi-system evidence assembly",
+    "Billing configuration issues are hard to diagnose across products"
+  ],
+  "strategicImpact": [
+    "Faster payment incident diagnosis",
+    "Higher quality dispute evidence packages",
+    "Reduced time-to-fix for Billing misconfigurations"
+  ],
+  "singleAgents": [
+    {
+      "name": "Payment Timeline Agent",
+      "role": "Rebuilds end-to-end payment journeys for support",
+      "trigger": "Payment failure or support escalation",
+      "toolStack": ["Stripe APIs", "Log search", "Radar signals", "Internal debug tools"],
+      "output": "Annotated timeline with likely root cause",
+      "roi": "10–20 min saved per complex payment case"
+    },
+    {
+      "name": "Dispute Evidence Agent",
+      "role": "Assembles compelling dispute evidence packets",
+      "trigger": "Chargeback created",
+      "toolStack": ["Orders data", "Delivery proofs", "Customer comms", "Dispute APIs"],
+      "output": "Evidence draft ready for merchant/ops review",
+      "roi": "Improved win-rate prep time cut in half"
+    },
+    {
+      "name": "Billing Config Auditor",
+      "role": "Finds subscription and invoicing misconfigurations",
+      "trigger": "Merchant reports unexpected invoices",
+      "toolStack": ["Billing APIs", "Product catalog", "Webhook logs", "Policy checkers"],
+      "output": "Config diff + remediation steps",
+      "roi": "Hours saved on Billing escalations"
+    },
+    {
+      "name": "Radar Case Summarizer",
+      "role": "Drafts fraud case narratives for reviewers",
+      "trigger": "High-value fraud review queued",
+      "toolStack": ["Radar", "Device intel", "Graph links", "Case management"],
+      "output": "Structured fraud case brief",
+      "roi": "Faster reviewer throughput"
+    }
+  ],
+  "multiAgent": {
+    "name": "Payments Incident Cell",
+    "description": "Coordinates technical, risk, and merchant communication when payment success rates drop.",
+    "supervisor": {
+      "name": "Incident Supervisor Agent",
+      "responsibilities": "Owns blast radius assessment, workstream routing, and escalation to human incident commanders.",
+      "routingLogic": "Auth drop → Issuer/Network Agent; fraud spike → Risk Agent; API errors → Platform Agent; merchant impact → Comms Agent."
+    },
+    "subAgents": [
+      {
+        "name": "Platform Telemetry Agent",
+        "role": "Service health",
+        "responsibilities": ["Detect error budgets", "Correlate deploys", "Propose mitigations"],
+        "contextHandoff": "Service health diagnosis"
+      },
+      {
+        "name": "Network Pathway Agent",
+        "role": "Issuer/network analysis",
+        "responsibilities": ["Segment declines", "Spot BIN/region issues", "Suggest retries/soft descriptors"],
+        "contextHandoff": "Pathway-level findings"
+      },
+      {
+        "name": "Risk Balance Agent",
+        "role": "Fraud vs conversion tradeoffs",
+        "responsibilities": ["Measure fraud shift", "Recommend threshold changes", "Estimate loss impact"],
+        "contextHandoff": "Risk tradeoff memo"
+      },
+      {
+        "name": "Merchant Comms Agent",
+        "role": "Status and guidance",
+        "responsibilities": ["Draft status updates", "Publish mitigation guidance", "Track merchant replies"],
+        "contextHandoff": "Approved external communications"
+      }
+    ],
+    "conflictResolution": "No automatic money-movement or Radar threshold change without human approval; conflicting diagnoses trigger a joint evidence review; customer communications require status manager sign-off."
+  },
+  "workflow": [
+    {
+      "id": "input",
+      "label": "Input",
+      "description": "Detect success-rate anomaly from metrics, merchant tickets, and partner alerts."
+    },
+    {
+      "id": "reason",
+      "label": "Reason",
+      "description": "Supervisor forms hypotheses and assigns specialist investigations."
+    },
+    {
+      "id": "tools",
+      "label": "Tool Execution",
+      "description": "Agents query telemetry, segment declines, and draft mitigation options."
+    },
+    {
+      "id": "hitl",
+      "label": "Human-in-the-Loop",
+      "description": "Incident commander approves mitigations and external messaging."
+    },
+    {
+      "id": "output",
+      "label": "Output",
+      "description": "Mitigation shipped; merchants updated; postmortem notes seeded."
+    }
+  ],
+  "integrations": {
+    "apis": ["Stripe API", "Radar", "Billing", "PagerDuty/Datadog"],
+    "webhooks": ["charge.failed", "radar.early_fraud_warning", "charge.dispute.created"],
+    "vectorDbs": ["Internal runbooks", "Prior incident corpus", "Network response code encyclopedia"],
+    "legacySystems": ["Older support consoles", "Partner portal tools", "Warehouse-based risk notebooks"],
+    "security": ["Strict tool allowlists", "No secret exfiltration", "Dual control for financial actions"]
+  }
+}

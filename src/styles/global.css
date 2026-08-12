@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --color-ink: #0f1c2e;
+  --color-ink-soft: #243447;
+  --color-slate: #5a6b7d;
+  --color-mist: #e8eef4;
+  --color-paper: #f5f8fb;
+  --color-line: #c5d3e0;
+  --color-teal: #0f7a7a;
+  --color-teal-deep: #0a5555;
+  --color-amber: #c47a1a;
+  --color-score: #147a5a;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 10% -10%, rgba(15, 122, 122, 0.08), transparent),
+      radial-gradient(ellipse 60% 40% at 90% 0%, rgba(15, 28, 46, 0.05), transparent),
+      linear-gradient(rgba(197, 211, 224, 0.35) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(197, 211, 224, 0.35) 1px, transparent 1px);
+    background-size: auto, auto, 48px 48px, 48px 48px;
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: rgba(15, 122, 122, 0.2);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes draw-line {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-rise {
+  animation: rise 0.6s ease-out both;
+}
+
+.animate-rise-delay-1 {
+  animation: rise 0.6s ease-out 0.1s both;
+}
+
+.animate-rise-delay-2 {
+  animation: rise 0.6s ease-out 0.2s both;
+}
+
+.animate-rise-delay-3 {
+  animation: rise 0.6s ease-out 0.3s both;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2.4s ease-in-out infinite;
+}

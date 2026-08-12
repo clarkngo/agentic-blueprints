@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clarkngo.github.io/agentic-blueprints/blueprint.schema.json",
+  "title": "Agentic Blueprint",
+  "type": "object",
+  "required": [
+    "slug",
+    "type",
+    "name",
+    "tagline",
+    "overview",
+    "opportunityScore",
+    "painPoints",
+    "strategicImpact",
+    "singleAgents",
+    "multiAgent",
+    "workflow",
+    "integrations"
+  ],
+  "properties": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "type": { "enum": ["industry", "company"] },
+    "name": { "type": "string" },
+    "tagline": { "type": "string" },
+    "overview": { "type": "string" },
+    "opportunityScore": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "painPoints": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "strategicImpact": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "singleAgents": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "role", "trigger", "toolStack", "output", "roi"],
+        "properties": {
+          "name": { "type": "string" },
+          "role": { "type": "string" },
+          "trigger": { "type": "string" },
+          "toolStack": { "type": "array", "items": { "type": "string" } },
+          "output": { "type": "string" },
+          "roi": { "type": "string" }
+        }
+      }
+    },
+    "multiAgent": {
+      "type": "object",
+      "required": ["name", "description", "supervisor", "subAgents", "conflictResolution"],
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "supervisor": {
+          "type": "object",
+          "required": ["name", "responsibilities", "routingLogic"],
+          "properties": {
+            "name": { "type": "string" },
+            "responsibilities": { "type": "string" },
+            "routingLogic": { "type": "string" }
+          }
+        },
+        "subAgents": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["name", "role", "responsibilities", "contextHandoff"],
+            "properties": {
+              "name": { "type": "string" },
+              "role": { "type": "string" },
+              "responsibilities": { "type": "array", "items": { "type": "string" } },
+              "contextHandoff": { "type": "string" }
+            }
+          }
+        },
+        "conflictResolution": { "type": "string" }
+      }
+    },
+    "workflow": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "description"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "integrations": {
+      "type": "object",
+      "required": ["apis", "webhooks", "vectorDbs", "legacySystems", "security"],
+      "properties": {
+        "apis": { "type": "array", "items": { "type": "string" } },
+        "webhooks": { "type": "array", "items": { "type": "string" } },
+        "vectorDbs": { "type": "array", "items": { "type": "string" } },
+        "legacySystems": { "type": "array", "items": { "type": "string" } },
+        "security": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

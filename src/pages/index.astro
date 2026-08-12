@@ -1,0 +1,47 @@
+---
+import DirectoryExplorer from '../components/DirectoryExplorer';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getBlueprintSummaries } from '../lib/blueprints';
+
+const blueprints = getBlueprintSummaries();
+const baseUrl = import.meta.env.BASE_URL;
+const industries = blueprints.filter((bp) => bp.type === 'industry').length;
+const companies = blueprints.filter((bp) => bp.type === 'company').length;
+---
+
+<BaseLayout title="AI Agentic Blueprint Directory">
+  <section class="relative overflow-hidden">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 pt-16 sm:pt-24 pb-12">
+      <p class="animate-rise font-mono text-xs uppercase tracking-[0.2em] text-teal">
+        Directory · v1
+      </p>
+      <h1 class="animate-rise-delay-1 mt-5 font-display text-5xl sm:text-7xl font-extrabold tracking-tight text-ink max-w-4xl text-balance">
+        Agentic Blueprints
+      </h1>
+      <p class="animate-rise-delay-2 mt-6 max-w-2xl text-lg sm:text-xl leading-relaxed text-slate">
+        Implementation maps for industries and companies — single agents, supervisor swarms,
+        workflow pipelines, and the integration stack to ship them.
+      </p>
+      <div class="animate-rise-delay-3 mt-8 flex flex-wrap gap-6 text-sm">
+        <div>
+          <div class="font-display text-3xl font-bold text-ink">{blueprints.length}</div>
+          <div class="text-slate">blueprints</div>
+        </div>
+        <div class="w-px bg-line"></div>
+        <div>
+          <div class="font-display text-3xl font-bold text-ink">{industries}</div>
+          <div class="text-slate">industries</div>
+        </div>
+        <div class="w-px bg-line"></div>
+        <div>
+          <div class="font-display text-3xl font-bold text-ink">{companies}</div>
+          <div class="text-slate">companies</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="directory" class="mx-auto max-w-6xl px-5 sm:px-8 pb-8">
+    <DirectoryExplorer client:load blueprints={blueprints} baseUrl={baseUrl} />
+  </section>
+</BaseLayout>

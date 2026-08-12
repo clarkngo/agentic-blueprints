@@ -1,0 +1,122 @@
+{
+  "slug": "logistics",
+  "type": "industry",
+  "name": "Logistics",
+  "tagline": "Turn disruption noise into coordinated, exception-aware execution.",
+  "overview": "Carriers and 3PLs lose margin to reactive firefighting across tendering, tracking, and claims. Multi-agent systems can sense disruptions early and replan with human control on costly decisions.",
+  "opportunityScore": 86,
+  "painPoints": [
+    "Dispatchers drown in exception emails and EDI noise",
+    "Tender acceptance is inconsistent across lanes and carriers",
+    "Claims and detention disputes lack assembled evidence"
+  ],
+  "strategicImpact": [
+    "Higher on-time performance with fewer manual touches",
+    "Improved tender win/accept quality",
+    "Faster claims packages with better recovery rates"
+  ],
+  "singleAgents": [
+    {
+      "name": "Exception Radar",
+      "role": "Detects delay risk and proposes recovery options",
+      "trigger": "Tracking event gap or weather/port alert",
+      "toolStack": ["TMS", "ELD/telematics", "Weather API", "Customer notification"],
+      "output": "Ranked recovery playbooks",
+      "roi": "15–30% fewer late deliveries from slow reaction"
+    },
+    {
+      "name": "Tender Optimizer",
+      "role": "Scores and responds to load tenders",
+      "trigger": "Inbound tender received",
+      "toolStack": ["TMS", "Lane history DB", "Cost model", "Capacity calendar"],
+      "output": "Accept/reject/counter recommendation",
+      "roi": "Better loaded-mile yield per planner"
+    },
+    {
+      "name": "Claims Dossier Agent",
+      "role": "Builds freight claim evidence packages",
+      "trigger": "Damage/shortage reported",
+      "toolStack": ["POD images", "BOL OCR", "Temperature logs", "Claims system"],
+      "output": "Submission-ready claim file",
+      "roi": "2–4 hours saved per claim"
+    },
+    {
+      "name": "Detention Watch Agent",
+      "role": "Tracks dwell and prepares detention invoices/disputes",
+      "trigger": "Gate-in without gate-out beyond threshold",
+      "toolStack": ["Yard systems", "Appointment APIs", "Contract rules", "Billing"],
+      "output": "Detention calculation + supporting timeline",
+      "roi": "Recovered accessorial revenue with less dispute churn"
+    }
+  ],
+  "multiAgent": {
+    "name": "Control Tower Crew",
+    "description": "A supervisor-led team that owns in-transit exceptions from detection through customer communication and replan.",
+    "supervisor": {
+      "name": "Control Tower Supervisor",
+      "responsibilities": "Owns shipment risk posture, chooses recovery strategy, and decides when to escalate to human dispatch.",
+      "routingLogic": "Sensor anomaly → Tracking Agent; capacity conflict → Relane Agent; customer impact → Comms Agent; cost tradeoff → Pricing Agent."
+    },
+    "subAgents": [
+      {
+        "name": "Tracking Fusion Agent",
+        "role": "Multi-source ETA truth",
+        "responsibilities": ["Merge EDI/API/telemetry", "Estimate true ETA", "Confidence score"],
+        "contextHandoff": "Canonical shipment state"
+      },
+      {
+        "name": "Relane Agent",
+        "role": "Alternate routing and carrier swap",
+        "responsibilities": ["Find alternate lanes", "Check capacity", "Estimate cost/time delta"],
+        "contextHandoff": "Feasible recovery options"
+      },
+      {
+        "name": "Pricing Impact Agent",
+        "role": "Cost and margin guardrails",
+        "responsibilities": ["Price recovery options", "Flag margin breaches", "Suggest accessorials"],
+        "contextHandoff": "Costed options for supervisor decision"
+      },
+      {
+        "name": "Shipper Comms Agent",
+        "role": "Customer-facing updates",
+        "responsibilities": ["Draft status updates", "Offer appointment changes", "Log commitments"],
+        "contextHandoff": "Approved customer message + accepted options"
+      }
+    ],
+    "conflictResolution": "High-cost replans require human dispatcher approval; conflicting ETA sources prefer telemetry over EDI; repeated customer commitments create locked constraints."
+  },
+  "workflow": [
+    {
+      "id": "input",
+      "label": "Input",
+      "description": "Ingest tracking pings, appointment windows, and contract SLAs."
+    },
+    {
+      "id": "reason",
+      "label": "Reason",
+      "description": "Supervisor diagnoses root cause and ranks recovery strategies."
+    },
+    {
+      "id": "tools",
+      "label": "Tool Execution",
+      "description": "Agents replan lanes, update TMS, and prepare customer communications."
+    },
+    {
+      "id": "hitl",
+      "label": "Human-in-the-Loop",
+      "description": "Dispatcher approves costly swaps or customer-sensitive commitments."
+    },
+    {
+      "id": "output",
+      "label": "Output",
+      "description": "Shipment plan updated; stakeholders notified; metrics logged."
+    }
+  ],
+  "integrations": {
+    "apis": ["Project44/FourKites", "McLeod/TMW", "MacroPoint", "Google Maps Platform"],
+    "webhooks": ["Shipment milestone events", "Appointment reschedule hooks", "Carrier tender responses"],
+    "vectorDbs": ["Lane playbooks", "Customer SOP library", "Claims precedent archive"],
+    "legacySystems": ["EDI 214/990 translators", "On-prem TMS", "Yard management systems"],
+    "security": ["Partner data segregation", "PII-light tracking payloads", "Immutable decision audit logs"]
+  }
+}
