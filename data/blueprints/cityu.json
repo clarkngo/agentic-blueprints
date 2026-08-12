@@ -1,0 +1,168 @@
+{
+  "slug": "cityu",
+  "type": "company",
+  "name": "City University of Seattle",
+  "tagline": "Agentic enrollment, advising, and student-success workflows for a career-focused, multi-modality university.",
+  "overview": "CityU of Seattle is a private nonprofit university offering 60+ certificate-to-doctorate programs online, on campus, and hybrid for working adults, transfers, military, and international students. Agentic AI can compress advisor response time, transfer-credit evaluation, financial-aid navigation, and at-risk student outreach while keeping admissions and academic decisions under human control.",
+  "opportunityScore": 87,
+  "painPoints": [
+    "Prospects bounce between program fit, tuition/aid, and modality questions before reaching an enrollment advisor",
+    "Transfer credit evaluation and transcript intake still create days of lag before a clear path to graduation",
+    "Student success depends on coordinating enrollment, academic advising, financial aid, and career support across siloed systems"
+  ],
+  "strategicImpact": [
+    "Higher inquiry-to-application and application-to-enroll conversion",
+    "Faster transfer-credit clarity and time-to-first-registration",
+    "Improved persistence via earlier, personalized outreach for at-risk students"
+  ],
+  "singleAgents": [
+    {
+      "name": "Program Fit Concierge",
+      "role": "Matches prospects to CityU programs by goals, modality, and degree level",
+      "trigger": "Website chat, Request Info form, or advisor handoff",
+      "toolStack": ["Program catalog RAG", "Degree finder rules", "Modality constraints", "CRM (inquiry record)", "US News/accreditation FAQ snippets"],
+      "output": "Shortlist of programs with start dates, modality notes, and advisor CTA",
+      "roi": "Faster first-response; higher quality advisor appointments"
+    },
+    {
+      "name": "Transfer Credit Estimator",
+      "role": "Drafts preliminary transfer credit maps from unofficial transcripts",
+      "trigger": "Transfer student uploads transcript or asks about credit acceptance",
+      "toolStack": ["Transcript OCR", "Transfer articulation knowledge base", "Registrar rules (AA up to 65 / BA up to 135)", "SIS degree audit"],
+      "output": "Unofficial credit estimate + missing-official-transcript checklist (not a final evaluation)",
+      "roi": "Days cut from 'what will transfer?' uncertainty; fewer repeat advisor calls"
+    },
+    {
+      "name": "Aid & Affordability Navigator",
+      "role": "Explains tuition, scholarships, aid, partnerships, and military benefits paths",
+      "trigger": "Prospect asks about cost, reimbursement, or funding options",
+      "toolStack": ["Tuition pages", "Scholarship/FA rules", "Corporate partnership discounts", "Military benefits playbooks", "CRM tasks"],
+      "output": "Personalized funding checklist + next steps (FAFSA, partnership verification, advisor meeting)",
+      "roi": "Lower cost-related melt; clearer packaging before enrollment"
+    },
+    {
+      "name": "Student Success Pulse Agent",
+      "role": "Flags at-risk enrolled students and drafts advisor outreach",
+      "trigger": "LMS inactivity, missed registration for next 10-week quarter, or early alert",
+      "toolStack": ["LMS engagement signals", "SIS registration status", "Advisor notes", "Email/SMS outreach"],
+      "output": "Risk tier + suggested outreach script + recommended support resource",
+      "roi": "Earlier interventions; improved continuation across quarterly starts"
+    }
+  ],
+  "multiAgent": {
+    "name": "Enrollment Journey Pod",
+    "description": "A supervisor-led multi-agent team that moves an adult learner from inquiry to a clear enrollment plan across program fit, admissions, transfer, and funding — with humans owning admits and official evaluations.",
+    "supervisor": {
+      "name": "Enrollment Journey Supervisor",
+      "responsibilities": "Owns prospect outcome through apply/enroll, prevents contradictory advice across modalities and student types, and escalates policy exceptions to human Enrollment Advisors.",
+      "routingLogic": "Goals/program questions → Program Fit; transcripts/transfer → Transfer Agent; cost/aid/military → Affordability Agent; international/visa → International Compliance Agent; ready to apply → Application Coach."
+    },
+    "subAgents": [
+      {
+        "name": "Program Fit Agent",
+        "role": "Academic & career matching",
+        "responsibilities": [
+          "Map goals to Business, Technology, Education, or Health programs",
+          "Call out modality limits (e.g., programs not 100% online)",
+          "Suggest next quarter start (Oct/Jan/Apr/Jul)"
+        ],
+        "contextHandoff": "Recommended program path + constraints to Supervisor"
+      },
+      {
+        "name": "Transfer Pathway Agent",
+        "role": "Credit and prior learning",
+        "responsibilities": [
+          "Parse prior coursework signals",
+          "Estimate transferable credit ranges",
+          "Generate registrar-ready document checklist"
+        ],
+        "contextHandoff": "Unofficial pathway estimate for advisor review"
+      },
+      {
+        "name": "Affordability Agent",
+        "role": "Funding strategy",
+        "responsibilities": [
+          "Outline tuition + aid + scholarship options",
+          "Detect partnership/tuition reimbursement opportunities",
+          "Route military benefit questions to correct playbook"
+        ],
+        "contextHandoff": "Funding plan draft and blockers"
+      },
+      {
+        "name": "International Compliance Agent",
+        "role": "Visa vs online-from-home routing",
+        "responsibilities": [
+          "Distinguish study-online-from-home vs F-1/USA pathways",
+          "Flag ELP and visa-restricted modalities",
+          "Assemble document/checklist for international admissions"
+        ],
+        "contextHandoff": "Compliant pathway recommendation for human international advisors"
+      }
+    ],
+    "conflictResolution": "Official transfer evaluations and admission decisions are always human/registrar-owned. Agents never promise aid awards or visa outcomes. When modality rules conflict with student preference, policy wins and the supervisor offers alternate programs. FERPA-sensitive records stay in approved systems with least-privilege tool access."
+  },
+  "workflow": [
+    {
+      "id": "input",
+      "label": "Input",
+      "description": "Ingest inquiry (chat/form/advisor), student type (first-time, transfer, military, international, graduate), goals, and any uploaded transcripts."
+    },
+    {
+      "id": "reason",
+      "label": "Reason",
+      "description": "Enrollment Journey Supervisor builds a plan covering program fit, start term, credit strategy, and funding path."
+    },
+    {
+      "id": "tools",
+      "label": "Tool Execution",
+      "description": "Specialist agents query catalog/SIS/CRM knowledge, draft estimates and checklists, and schedule advisor follow-ups."
+    },
+    {
+      "id": "hitl",
+      "label": "Human-in-the-Loop",
+      "description": "Enrollment/Academic Advisors confirm recommendations; Registrar finalizes official transfer credit; Financial Aid packages awards."
+    },
+    {
+      "id": "output",
+      "label": "Output",
+      "description": "Student receives a clear next-step plan, free application path, and booked advisor support through registration."
+    }
+  ],
+  "integrations": {
+    "apis": [
+      "CRM / inquiry management",
+      "SIS (registration, degree audit)",
+      "LMS engagement APIs",
+      "Application portal",
+      "Financial aid / scholarship systems",
+      "Document intake for official transcripts (e.g., to registrar@cityu.edu workflows)"
+    ],
+    "webhooks": [
+      "Request Info / Apply Now submissions",
+      "Transcript received events",
+      "FAFSA / aid status updates",
+      "Early-alert / LMS inactivity signals",
+      "Quarter registration open/close"
+    ],
+    "vectorDbs": [
+      "University catalog and program pages",
+      "Admissions FAQs (accreditation, transfer limits, modalities)",
+      "Financial aid, scholarship, and partnership playbooks",
+      "International and military pathway guides",
+      "Advisor macros and alumni outcomes talking points"
+    ],
+    "legacySystems": [
+      "Registrar transcript imaging / email intake",
+      "Older degree-audit tools",
+      "Campus/partner location schedules",
+      "Manual scholarship tracking sheets"
+    ],
+    "security": [
+      "FERPA-compliant data handling and retention",
+      "No automated official credit or aid decisions",
+      "PII minimization in prompts and chat logs",
+      "Role-based access for advisors vs. prospects",
+      "Audit trails for recommendations and human overrides"
+    ]
+  }
+}
