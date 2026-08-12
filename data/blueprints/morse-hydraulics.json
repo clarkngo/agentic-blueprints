@@ -1,0 +1,165 @@
+{
+  "slug": "morse-hydraulics",
+  "type": "company",
+  "name": "Morse Hydraulics",
+  "tagline": "Agentic ops for multi-location hydraulic hose, fittings, and mobile van service.",
+  "overview": "Morse Hydraulics specializes in high-pressure hydraulic hoses, fittings, quick connects, greaser systems, and while-you-wait assemblies across CA, WA, OR, and TX. Agentic AI can speed parts identification, cross-location inventory, quote turnaround, and mobile dispatch without replacing counter expertise on safety-critical assemblies.",
+  "opportunityScore": 85,
+  "painPoints": [
+    "Customers need the right hose/fitting match across SAE, metric, BSP, Japanese, and Caterpillar standards under time pressure",
+    "Inventory and capacity are fragmented across multiple branches and mobile vans",
+    "Quotes, credit checks, and emergency mobile dispatch still rely on phone tag and tribal knowledge"
+  ],
+  "strategicImpact": [
+    "Faster first-pass parts identification and quote turnaround",
+    "Higher fill rates via cross-branch inventory visibility",
+    "Shorter emergency mobile-van response time with better route/tech matching"
+  ],
+  "singleAgents": [
+    {
+      "name": "Hose & Fitting Identifier",
+      "role": "Matches customer specs/photos to the correct hose, fitting, and adapter SKUs",
+      "trigger": "Counter inquiry, email with photo/spec, or web contact form",
+      "toolStack": ["Product catalog RAG", "Image OCR/vision for markings", "Cross-reference tables (SAE/metric/BSP/JIS/Cat)", "Inventory lookup"],
+      "output": "Ranked SKU matches with pressure rating, compatibility notes, and in-stock locations",
+      "roi": "5–15 min saved per complex ID; fewer wrong-part remakes"
+    },
+    {
+      "name": "While-You-Wait Quote Agent",
+      "role": "Builds assembly quotes from BOM, labor, and branch capacity",
+      "trigger": "Customer requests hose assembly while waiting or same-day",
+      "toolStack": ["Pricing sheets", "Crimper capacity calendar", "Labor standards", "CRM/POS"],
+      "output": "Line-item quote + ETA by branch + upsell options (guards, QDs, gauges)",
+      "roi": "Faster counter throughput; more consistent margin on assemblies"
+    },
+    {
+      "name": "Mobile Van Dispatch Agent",
+      "role": "Prioritizes emergency mobile service jobs and suggests routing",
+      "trigger": "Mobile emergency call or after-hours service request",
+      "toolStack": ["Branch/van locations", "Maps routing", "Tech skills matrix", "Van inventory snapshot", "SMS/voice notify"],
+      "output": "Recommended van/tech, ETA, parts to stage, and customer confirmation script",
+      "roi": "Faster emergency response; fewer dry runs missing fittings"
+    },
+    {
+      "name": "Multi-Branch Inventory Scout",
+      "role": "Finds hard-to-get fittings across Morse locations and suggests transfer/pickup",
+      "trigger": "Local stockout on fittings, Manuli hose, or specialty adapters",
+      "toolStack": ["Multi-location inventory", "Transfer lead times", "Customer portal/CRM", "Purchase history"],
+      "output": "Nearest availability + transfer vs. buy decision + customer options",
+      "roi": "Higher capture on specialty orders; less lost business to competitors"
+    }
+  ],
+  "multiAgent": {
+    "name": "Service Counter Swarm",
+    "description": "A supervisor-led team that takes a customer from part identification through quote, stock confirmation, and counter or mobile fulfillment across Morse branches.",
+    "supervisor": {
+      "name": "Counter Operations Supervisor",
+      "responsibilities": "Owns the customer job outcome, sequences identification → pricing → inventory → fulfillment, and escalates ambiguous high-pressure or safety-critical specs to human techs.",
+      "routingLogic": "Unknown part → Identifier Agent; pricing/ETA → Quote Agent; stockout → Inventory Scout; onsite emergency → Dispatch Agent; credit/account issues → human sales/credit."
+    },
+    "subAgents": [
+      {
+        "name": "Spec Intake Agent",
+        "role": "Capture requirements",
+        "responsibilities": [
+          "Extract size, pressure, temp, media, ends, and length",
+          "Flag hazmat/pressure-critical applications",
+          "Ask clarifying questions when markings are incomplete"
+        ],
+        "contextHandoff": "Normalized job spec packet to Supervisor"
+      },
+      {
+        "name": "Catalog Match Agent",
+        "role": "Product selection",
+        "responsibilities": [
+          "Map specs to hose/fitting/QD/greaser SKUs",
+          "Apply Manuli and brand compatibility rules",
+          "Note SAE vs metric vs BSP vs Cat caveats"
+        ],
+        "contextHandoff": "Candidate BOM with confidence scores"
+      },
+      {
+        "name": "Branch Fulfillment Agent",
+        "role": "Stock and capacity",
+        "responsibilities": [
+          "Check Fremont, Hayward, Livermore, Kent, Tacoma, Seattle, Portland, Austin stock",
+          "Estimate crimping capacity and wait time",
+          "Propose pickup branch or van staging"
+        ],
+        "contextHandoff": "Fulfillment plan with ETA and location"
+      },
+      {
+        "name": "Customer Comms Agent",
+        "role": "Quotes and updates",
+        "responsibilities": [
+          "Draft quote and confirmation messages",
+          "Send SMS/email with ETA and location directions",
+          "Log job notes for the counter team"
+        ],
+        "contextHandoff": "Approved customer communication + POS-ready job ticket"
+      }
+    ],
+    "conflictResolution": "Any low-confidence pressure rating or fitting standard match requires human counter tech approval before assembly. Inventory conflicts prefer in-branch stock over speculative transfers. Emergency van jobs outrank routine quotes when safety/downtime risk is high. Credit holds always escalate to humans."
+  },
+  "workflow": [
+    {
+      "id": "input",
+      "label": "Input",
+      "description": "Capture customer need via counter, phone, email, or photo of failed hose/fitting; include machine type, pressure, and location (CA/WA/OR/TX)."
+    },
+    {
+      "id": "reason",
+      "label": "Reason",
+      "description": "Supervisor classifies as standard assembly, specialty fitting hunt, or mobile emergency and selects agent path."
+    },
+    {
+      "id": "tools",
+      "label": "Tool Execution",
+      "description": "Agents identify parts, price the assembly, check multi-branch stock/crimper capacity, and draft dispatch or pickup options."
+    },
+    {
+      "id": "hitl",
+      "label": "Human-in-the-Loop",
+      "description": "Certified hose specialist verifies high-pressure specs, crimp specs, and final assembly quality before release to customer."
+    },
+    {
+      "id": "output",
+      "label": "Output",
+      "description": "Customer gets quote/ETA, assembly is completed at counter or by mobile van, and job history updates inventory and CRM."
+    }
+  ],
+  "integrations": {
+    "apis": [
+      "POS / counter sales system",
+      "Multi-location inventory",
+      "CRM / customer accounts",
+      "SMS/voice (Twilio or similar)",
+      "Maps / routing for mobile vans",
+      "Email (fremont@, kent@, portland@, austin@ location inboxes)"
+    ],
+    "webhooks": [
+      "New web contact / credit application",
+      "Stock receipt and transfer events",
+      "Mobile job created/completed",
+      "Low-stock alerts on high-turn fittings"
+    ],
+    "vectorDbs": [
+      "Hose & fitting cross-reference catalogs (SAE, metric, BSP, JIS, Caterpillar)",
+      "Manuli hose specialist guides and crimp specs",
+      "Historical job tickets and common machine BOMs",
+      "Branch hours, services, and mobile coverage playbooks"
+    ],
+    "legacySystems": [
+      "Branch POS terminals",
+      "Spreadsheet price lists",
+      "Paper/PDF credit applications",
+      "Vendor punchout or email PO workflows"
+    ],
+    "security": [
+      "No auto-approval of high-pressure crimp specs without tech sign-off",
+      "Customer PII minimization on quotes and SMS",
+      "Role-based access to pricing and credit data",
+      "Audit trail for assembly recommendations and overrides"
+    ]
+  }
+}
