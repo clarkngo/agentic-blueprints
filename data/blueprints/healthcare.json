@@ -1,0 +1,122 @@
+{
+  "slug": "healthcare",
+  "type": "industry",
+  "name": "Healthcare",
+  "tagline": "Automate clinical ops, claims, and care coordination without sacrificing safety.",
+  "overview": "Health systems drown in documentation, prior auth, and fragmented EHR workflows. Agentic AI can cut administrative load while keeping clinicians in the loop for high-stakes decisions.",
+  "opportunityScore": 91,
+  "painPoints": [
+    "Prior authorization backlogs delaying care by days",
+    "Clinicians spending 2+ hours daily on documentation",
+    "Claims denials from incomplete coding and missing clinical evidence"
+  ],
+  "strategicImpact": [
+    "30–50% reduction in prior-auth turnaround",
+    "1–2 hours reclaimed per clinician per day",
+    "15–25% fewer preventable claim denials"
+  ],
+  "singleAgents": [
+    {
+      "name": "Prior Auth Navigator",
+      "role": "Assembles clinical evidence and submits prior authorizations",
+      "trigger": "Order placed that requires payer approval",
+      "toolStack": ["EHR FHIR API", "Payer portal RPA", "Clinical guidelines RAG", "PDF OCR"],
+      "output": "Completed auth packet + status tracker",
+      "roi": "~12 hrs/week saved per specialty clinic"
+    },
+    {
+      "name": "Ambient Chart Scribe",
+      "role": "Drafts structured clinical notes from encounter audio",
+      "trigger": "Visit ends or clinician requests note draft",
+      "toolStack": ["Speech-to-text", "Specialty note templates", "EHR write-back", "PHI redaction"],
+      "output": "SOAP/APSO draft ready for clinician sign-off",
+      "roi": "45–90 min documentation saved per provider/day"
+    },
+    {
+      "name": "Denial Recovery Agent",
+      "role": "Diagnoses claim denials and drafts appeals with evidence",
+      "trigger": "ERA/835 denial code received",
+      "toolStack": ["Claims engine", "Coding knowledge base", "EHR chart search", "Appeal letter generator"],
+      "output": "Appeal packet + corrected claim recommendation",
+      "roi": "8–15% uplift in recovered denied revenue"
+    },
+    {
+      "name": "Care Gap Outreach Agent",
+      "role": "Identifies overdue preventive care and schedules outreach",
+      "trigger": "Nightly population health scan",
+      "toolStack": ["Quality measure rules", "CRM/SMS", "Scheduling API", "Patient preference store"],
+      "output": "Prioritized outreach queue + booked appointments",
+      "roi": "2–4× improvement in gap-closure throughput"
+    }
+  ],
+  "multiAgent": {
+    "name": "Care Coordination Swarm",
+    "description": "End-to-end post-discharge coordination that reduces readmissions while keeping nurses as supervisors.",
+    "supervisor": {
+      "name": "Care Orchestrator",
+      "responsibilities": "Owns the patient episode, sequences tasks, escalates clinical risk, and maintains a single source of truth.",
+      "routingLogic": "Routes by acuity and task type: clinical questions → Clinical Triage, logistics → Logistics Agent, benefits → Benefits Agent, documentation → Chart Agent."
+    },
+    "subAgents": [
+      {
+        "name": "Clinical Triage Agent",
+        "role": "Symptom and risk assessment",
+        "responsibilities": ["Score readmission risk", "Flag red-flag symptoms", "Recommend escalation"],
+        "contextHandoff": "Risk score + recommended pathway to Orchestrator"
+      },
+      {
+        "name": "Logistics Agent",
+        "role": "Follow-up scheduling and transport",
+        "responsibilities": ["Book PCP/specialist visits", "Coordinate DME delivery", "Confirm transport"],
+        "contextHandoff": "Confirmed appointments and open logistics gaps"
+      },
+      {
+        "name": "Benefits Agent",
+        "role": "Coverage and cost navigation",
+        "responsibilities": ["Verify benefits", "Estimate patient cost", "Identify financial assistance"],
+        "contextHandoff": "Coverage constraints that reshape the care plan"
+      },
+      {
+        "name": "Chart Synthesis Agent",
+        "role": "Episode documentation",
+        "responsibilities": ["Summarize discharge instructions", "Update care plan", "Notify care team"],
+        "contextHandoff": "Signed summary package for EHR and patient portal"
+      }
+    ],
+    "conflictResolution": "Clinical disagreements escalate to on-call nurse within SLA; conflicting schedules re-plan with patient preference weights; any PHI tool failure pauses the run and pages ops."
+  },
+  "workflow": [
+    {
+      "id": "input",
+      "label": "Input",
+      "description": "Ingest discharge event, vitals, meds, and payer constraints from EHR + ADT feed."
+    },
+    {
+      "id": "reason",
+      "label": "Reason",
+      "description": "Orchestrator plans a 7-day care pathway and selects specialist agents by risk tier."
+    },
+    {
+      "id": "tools",
+      "label": "Tool Execution",
+      "description": "Agents call scheduling, benefits, messaging, and chart tools in parallel where safe."
+    },
+    {
+      "id": "hitl",
+      "label": "Human-in-the-Loop",
+      "description": "Nurse reviews escalations, high-risk plans, and any outbound clinical advice before send."
+    },
+    {
+      "id": "output",
+      "label": "Output",
+      "description": "Patient receives plan; EHR care plan updates; analytics dashboards track adherence."
+    }
+  ],
+  "integrations": {
+    "apis": ["Epic/Cerner FHIR R4", "Availity / payer APIs", "Twilio SMS", "Zoom for Healthcare"],
+    "webhooks": ["ADT discharge events", "Claim status webhooks", "Appointment confirmation callbacks"],
+    "vectorDbs": ["Clinical guidelines corpus", "Payer policy library", "Local care pathway playbooks"],
+    "legacySystems": ["On-prem EHR interfaces (HL7 v2)", "Practice management systems", "Fax/eFax gateways"],
+    "security": ["HIPAA BAA tooling", "PHI tokenization", "Break-glass audit trails", "Role-based EHR scopes"]
+  }
+}

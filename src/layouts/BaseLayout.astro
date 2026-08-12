@@ -1,0 +1,76 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'Browse and create AI agentic implementation blueprints for industries and companies.',
+} = Astro.props;
+
+const fullTitle = title === 'AI Agentic Blueprint Directory'
+  ? title
+  : `${title} · Agentic Blueprints`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>{fullTitle}</title>
+  </head>
+  <body class="min-h-screen">
+    <header class="border-b border-line/80 bg-paper/80 backdrop-blur-md sticky top-0 z-40">
+      <div class="mx-auto max-w-6xl px-5 sm:px-8 h-16 flex items-center justify-between gap-4">
+        <a href={import.meta.env.BASE_URL} class="group flex items-center gap-3 min-w-0">
+          <span
+            class="grid size-9 place-items-center rounded-md bg-ink text-paper font-display font-bold text-sm tracking-tight group-hover:bg-teal transition-colors"
+            aria-hidden="true"
+          >
+            AB
+          </span>
+          <span class="font-display font-bold tracking-tight text-ink truncate">
+            Agentic Blueprints
+          </span>
+        </a>
+        <nav class="flex items-center gap-5 text-sm text-slate">
+          <a href={`${import.meta.env.BASE_URL}#directory`} class="hover:text-ink transition-colors">
+            Directory
+          </a>
+          <a
+            href="https://github.com/clarkngo/agentic-blueprints"
+            class="hover:text-ink transition-colors"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="border-t border-line mt-24">
+      <div class="mx-auto max-w-6xl px-5 sm:px-8 py-10 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between text-sm text-slate">
+        <p>AI Agentic Blueprint Directory</p>
+        <p>Add a JSON file in <code class="font-mono text-ink-soft">data/blueprints/</code> to publish a page.</p>
+      </div>
+    </footer>
+  </body>
+</html>

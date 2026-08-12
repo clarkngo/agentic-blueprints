@@ -1,0 +1,167 @@
+{
+  "slug": "bnsf",
+  "type": "company",
+  "name": "BNSF Railway",
+  "tagline": "Agentic ops for a 32,500-mile freight network — safer trains, sharper service, faster customer resolution.",
+  "overview": "BNSF moves agricultural, industrial, energy, automotive, and intermodal freight across one of North America’s largest rail networks. Agentic AI can compress service exception handling, demurrage disputes, claims assembly, and customer pricing/support loops while keeping safety-critical and regulatory actions under human control.",
+  "opportunityScore": 89,
+  "painPoints": [
+    "Service exceptions and advisories require stitching network, weather, and customer commitments across siloed systems",
+    "Demurrage, storage, and cargo claims consume analyst time assembling evidence from multiple portals",
+    "Shippers struggle to get rates, ETAs, and issue resolution without multi-touch customer assistance"
+  ],
+  "strategicImpact": [
+    "Faster exception-to-recovery cycle time across carload and intermodal",
+    "Lower demurrage dispute and claims handling cost per case",
+    "Higher first-contact resolution in customer and driver/dispatcher support"
+  ],
+  "singleAgents": [
+    {
+      "name": "Service Advisory Synthesizer",
+      "role": "Turns network events into customer-ready service impact briefs",
+      "trigger": "New service advisory, facility update, or network disruption signal",
+      "toolStack": ["Customer notification feed", "Network ops data", "Weather/outage APIs", "Customer CRM segmentation", "RAG over service playbooks"],
+      "output": "Impacted lanes/commodities list + draft customer notification + recommended mitigation options",
+      "roi": "1–3 hours saved per major advisory; fewer reactive call-center spikes"
+    },
+    {
+      "name": "Demurrage Dispute Packager",
+      "role": "Assembles demurrage/storage timelines and draft dispute responses",
+      "trigger": "Customer disputes demurrage/storage charges or invoice exception created",
+      "toolStack": ["Billing system", "Car location / EDI 418-style events", "Facility appointment logs", "Tariff/rules RAG", "OCR for customer docs"],
+      "output": "Chronology packet, rule citations, and recommended uphold/adjust disposition",
+      "roi": "30–60 min saved per dispute; more consistent tariff application"
+    },
+    {
+      "name": "Cargo Claim Dossier Agent",
+      "role": "Builds cargo loss and damage claim evidence packages",
+      "trigger": "Claim filed via customer tools or customer assistance",
+      "toolStack": ["Claims system", "BOL/shipping instructions OCR", "Inspection photos", "Waybill & interchange history", "Hazmat/security notes"],
+      "output": "Submission-ready claim dossier with liability hypothesis and missing-evidence checklist",
+      "roi": "2–4 hours saved per complex claim; faster time-to-decision"
+    },
+    {
+      "name": "Ship-With-BNSF Concierge",
+      "role": "Guides new and existing shippers through rate, routing, and tracking questions",
+      "trigger": "Customer portal chat/ticket or 'new to rail' inquiry",
+      "toolStack": ["Published rates / pricing tools", "Carload & intermodal schedules", "Station/rail-miles calculators", "Shipping instructions checklist", "Customer portal APIs"],
+      "output": "Answer with cited tools, next-step checklist, or precise handoff to pricing/sales",
+      "roi": "20–35% deflection of repetitive customer assistance contacts"
+    }
+  ],
+  "multiAgent": {
+    "name": "Network Service Recovery Cell",
+    "description": "A supervisor-led multi-agent team that owns disruption-to-recovery for affected shipments — from perception through customer communication — without changing safety-critical train control.",
+    "supervisor": {
+      "name": "Service Recovery Supervisor",
+      "responsibilities": "Owns blast radius assessment for a disruption, sequences specialist work, decides when to escalate to human network/service managers, and prevents conflicting customer commitments.",
+      "routingLogic": "Network/asset issues → Movement Truth Agent; capacity/recrew/re-route options → Replan Agent; customer SLA impact → Customer Impact Agent; commercial/accessorial risk → Commercial Guard Agent."
+    },
+    "subAgents": [
+      {
+        "name": "Movement Truth Agent",
+        "role": "Canonical shipment and train-state fusion",
+        "responsibilities": [
+          "Merge car location, interchange, and facility events",
+          "Estimate revised ETAs with confidence",
+          "Flag data gaps or conflicting scans"
+        ],
+        "contextHandoff": "Trusted movement state and ETA confidence to Supervisor"
+      },
+      {
+        "name": "Replan Agent",
+        "role": "Feasible recovery options",
+        "responsibilities": [
+          "Propose alternate routings or hold/release strategies",
+          "Check terminal/yard capacity constraints",
+          "Estimate recovery time vs. cost tradeoffs"
+        ],
+        "contextHandoff": "Ranked recovery options with constraints for Supervisor decision"
+      },
+      {
+        "name": "Customer Impact Agent",
+        "role": "Shipper-facing impact and comms",
+        "responsibilities": [
+          "Map affected BOs/shipments to customers and commodities",
+          "Draft service notifications aligned to advisory templates",
+          "Offer self-serve tracking next steps in the customer portal"
+        ],
+        "contextHandoff": "Segmented notification drafts and escalation list"
+      },
+      {
+        "name": "Commercial Guard Agent",
+        "role": "Accessorial and commitment guardrails",
+        "responsibilities": [
+          "Estimate demurrage/storage exposure from delays",
+          "Flag promises that conflict with tariff or contract terms",
+          "Recommend goodwill vs. policy-bound responses"
+        ],
+        "contextHandoff": "Commercial risk memo before external commitments lock"
+      }
+    ],
+    "conflictResolution": "Safety and operating rules always override service speed. No customer ETA or commercial concession is sent without human service-desk approval when confidence is low or $ exposure exceeds threshold. Conflicting movement data pauses replan until Movement Truth Agent reconciles or a human dispatcher confirms. Train control / PTC systems remain out of agent write-scope."
+  },
+  "workflow": [
+    {
+      "id": "input",
+      "label": "Input",
+      "description": "Ingest disruption signal (weather, facility outage, congestion, mechanical) plus affected cars/trains, customer commitments, and open advisories from network and customer systems."
+    },
+    {
+      "id": "reason",
+      "label": "Reason",
+      "description": "Service Recovery Supervisor builds a blast-radius hypothesis, prioritizes premium/intermodal/agriculture windows, and selects which specialist agents to run."
+    },
+    {
+      "id": "tools",
+      "label": "Tool Execution",
+      "description": "Agents fuse movement events, score recovery options, draft customer notifications, and estimate demurrage/commercial exposure using approved BNSF tools and read APIs."
+    },
+    {
+      "id": "hitl",
+      "label": "Human-in-the-Loop",
+      "description": "Network/service managers approve recovery strategy and external messaging; commercial teams approve any tariff exceptions or goodwill; safety-critical actions never auto-execute."
+    },
+    {
+      "id": "output",
+      "label": "Output",
+      "description": "Customers receive accurate advisories via notification channels; internal ops board updates; lessons are written back to the service playbook knowledge base."
+    }
+  ],
+  "integrations": {
+    "apis": [
+      "BNSF Customer Portal (tracking, billing, shipping tools)",
+      "Car location / shipment visibility services",
+      "Pricing & published rate tools",
+      "CRM / customer assistance platform",
+      "Supplier Portal (invoices, POs) for adjacent procurement ops"
+    ],
+    "webhooks": [
+      "Service advisory / network update events",
+      "Shipment milestone and interchange updates",
+      "Demurrage/storage invoice exceptions",
+      "Cargo claim submitted events",
+      "Facility status changes"
+    ],
+    "vectorDbs": [
+      "Tariffs, demurrage & storage rules",
+      "Shipping instructions checklists and commodity guides (ag, intermodal, hazmat)",
+      "Historical service advisories and recovery playbooks",
+      "Claims precedent and inspection guides",
+      "Safety rule excerpts appropriate for non-control advisory use"
+    ],
+    "legacySystems": [
+      "Mainframe/legacy transportation management systems",
+      "EDI gateways (e.g., waybill, car location messages)",
+      "Yard/terminal inventory systems",
+      "On-prem claims and billing platforms"
+    ],
+    "security": [
+      "Strict separation from Positive Train Control and safety-critical control systems",
+      "Customer data minimization and portal-scoped auth",
+      "Hazmat and security information need-to-know controls",
+      "Full audit trail for notifications, disputes, and claim dispositions",
+      "Maker-checker for commercial concessions and external advisories"
+    ]
+  }
+}

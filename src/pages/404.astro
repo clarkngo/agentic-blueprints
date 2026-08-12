@@ -1,0 +1,8 @@
+---
+import CreateBlueprintFromRoute from '../components/CreateBlueprintFromRoute';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Create Blueprint">
+  <CreateBlueprintFromRoute client:load baseUrl={import.meta.env.BASE_URL} />
+</BaseLayout>

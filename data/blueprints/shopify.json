@@ -1,0 +1,122 @@
+{
+  "slug": "shopify",
+  "type": "company",
+  "name": "Shopify",
+  "tagline": "Agentic ops for merchants and platform teams across support, risk, and growth.",
+  "overview": "Shopify sits at the center of merchant commerce data. Internal agentic systems can accelerate Trust & Safety reviews, merchant support, and growth experiments while preserving merchant trust.",
+  "opportunityScore": 90,
+  "painPoints": [
+    "Merchant support volume spikes around launches and peak seasons",
+    "Risk reviews require stitching store, payment, and behavioral signals",
+    "Partner and app ecosystem issues need multi-system diagnosis"
+  ],
+  "strategicImpact": [
+    "Faster merchant time-to-resolution",
+    "Higher precision in risk holds/releases",
+    "Quicker diagnosis of app/checkout regressions"
+  ],
+  "singleAgents": [
+    {
+      "name": "Merchant Support Copilot",
+      "role": "Drafts accurate support replies with store context",
+      "trigger": "Ticket opened in merchant support",
+      "toolStack": ["Zendesk", "Shopify Admin APIs", "Statuspage", "Internal runbooks RAG"],
+      "output": "Suggested reply + next-best action",
+      "roi": "20–35% handle-time reduction"
+    },
+    {
+      "name": "Risk Review Agent",
+      "role": "Assembles risk evidence for Trust & Safety",
+      "trigger": "Store flagged by risk model",
+      "toolStack": ["Risk feature store", "Payments signals", "Graph features", "Case system"],
+      "output": "Risk dossier with recommended disposition",
+      "roi": "Faster reviews with fewer false holds"
+    },
+    {
+      "name": "App Ecosystem Debugger",
+      "role": "Triages checkout/app integration failures",
+      "trigger": "Spike in checkout errors tied to an app",
+      "toolStack": ["Log search", "Partner API", "Feature flags", "Incident bot"],
+      "output": "Root-cause hypothesis + mitigation steps",
+      "roi": "Hours saved per incident bridge"
+    },
+    {
+      "name": "Merchant Growth Scout",
+      "role": "Suggests personalized growth plays for merchant success",
+      "trigger": "Account health review or churn risk signal",
+      "toolStack": ["Merchant analytics", "Benchmark models", "Email/CRM", "Experiment platform"],
+      "output": "Prioritized growth plan for CSM outreach",
+      "roi": "Higher playbook adoption and expansion"
+    }
+  ],
+  "multiAgent": {
+    "name": "Merchant Rescue Pod",
+    "description": "Coordinates support, risk, and product diagnosis when a merchant hits a business-blocking issue.",
+    "supervisor": {
+      "name": "Merchant Outcome Supervisor",
+      "responsibilities": "Owns merchant business outcome, prevents ping-pong between teams, and sequences unblocking steps.",
+      "routingLogic": "Payments/risk → Risk Agent; platform bug → Platform Diagnostics; configuration → Support Agent; commercial impact → Success Agent."
+    },
+    "subAgents": [
+      {
+        "name": "Support Context Agent",
+        "role": "Ticket and store state",
+        "responsibilities": ["Summarize ticket history", "Pull store config", "Identify reproduction steps"],
+        "contextHandoff": "Normalized incident brief"
+      },
+      {
+        "name": "Risk Context Agent",
+        "role": "Trust constraints",
+        "responsibilities": ["Check holds", "Explain policy gates", "Propose safe remediations"],
+        "contextHandoff": "Risk constraints that limit actions"
+      },
+      {
+        "name": "Platform Diagnostics Agent",
+        "role": "Technical root cause",
+        "responsibilities": ["Query logs/metrics", "Bisect feature flags", "Draft incident notes"],
+        "contextHandoff": "Technical findings + mitigations"
+      },
+      {
+        "name": "Success Recovery Agent",
+        "role": "Commercial recovery",
+        "responsibilities": ["Estimate revenue impact", "Propose goodwill options", "Schedule follow-up"],
+        "contextHandoff": "Merchant recovery plan awaiting approval"
+      }
+    ],
+    "conflictResolution": "Risk policy always wins over speed; production changes require on-call acknowledgment; goodwill credits above threshold need human success manager approval."
+  },
+  "workflow": [
+    {
+      "id": "input",
+      "label": "Input",
+      "description": "Ingest ticket, store ID, recent errors, and risk flags."
+    },
+    {
+      "id": "reason",
+      "label": "Reason",
+      "description": "Supervisor classifies blocker type and builds an unblocking plan."
+    },
+    {
+      "id": "tools",
+      "label": "Tool Execution",
+      "description": "Specialists gather evidence, test mitigations, and draft merchant communications."
+    },
+    {
+      "id": "hitl",
+      "label": "Human-in-the-Loop",
+      "description": "Human agent approves risky actions, credits, or policy exceptions."
+    },
+    {
+      "id": "output",
+      "label": "Output",
+      "description": "Merchant unblocked; case closed with reusable runbook updates."
+    }
+  ],
+  "integrations": {
+    "apis": ["Shopify Admin GraphQL", "Zendesk", "Stripe/Shopify Payments internals", "Datadog"],
+    "webhooks": ["Store risk events", "Ticket priority changes", "Checkout error spikes"],
+    "vectorDbs": ["Support macros + runbooks", "Past incident postmortems", "Partner app docs"],
+    "legacySystems": ["Older case tools", "Internal admin consoles", "Batch reporting warehouses"],
+    "security": ["Merchant data minimization", "Just-in-time admin access", "Action allowlists for agents"]
+  }
+}

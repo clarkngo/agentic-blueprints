@@ -1,0 +1,122 @@
+{
+  "slug": "retail",
+  "type": "industry",
+  "name": "Retail",
+  "tagline": "Unify merchandising, inventory, and CX with agents that act across the commerce stack.",
+  "overview": "Retail margins are squeezed by stockouts, markdown waste, and slow customer service handoffs. Agentic AI connects planning, store ops, and support so decisions move at the speed of demand.",
+  "opportunityScore": 84,
+  "painPoints": [
+    "Buyers react late to demand shifts and promo leakage",
+    "Inventory is siloed between DC, store, and marketplace channels",
+    "CX agents lack real-time order and inventory context"
+  ],
+  "strategicImpact": [
+    "10–20% fewer stockouts on key SKUs",
+    "Faster promo response with less margin erosion",
+    "Higher first-contact resolution in customer care"
+  ],
+  "singleAgents": [
+    {
+      "name": "Demand Pulse Agent",
+      "role": "Detects demand anomalies and recommends buy/transfer actions",
+      "trigger": "Hourly sell-through and traffic signals",
+      "toolStack": ["POS analytics", "Weather/events APIs", "Forecast models", "Buying workflow API"],
+      "output": "Ranked replenishment and transfer recommendations",
+      "roi": "1–3% inventory productivity lift"
+    },
+    {
+      "name": "Promo Compliance Agent",
+      "role": "Checks price/promo execution across channels",
+      "trigger": "Promo launch or price mismatch alert",
+      "toolStack": ["PIM", "eComm APIs", "Store price book", "Computer vision shelf checks"],
+      "output": "Mismatch tickets with suggested fixes",
+      "roi": "Hours saved per promo week + recovered margin"
+    },
+    {
+      "name": "Order Concierge Agent",
+      "role": "Resolves order, shipping, and return inquiries end-to-end",
+      "trigger": "Customer message tagged as order issue",
+      "toolStack": ["OMS", "Carrier tracking", "Returns portal", "CRM"],
+      "output": "Resolved case or precise escalation packet",
+      "roi": "25–40% deflection of repetitive CX tickets"
+    },
+    {
+      "name": "Assortment Insight Agent",
+      "role": "Summarizes category performance for buyers",
+      "trigger": "Weekly category review",
+      "toolStack": ["BI warehouse", "Vendor scorecards", "Competitor scrape", "Markdown optimizer"],
+      "output": "Buyer briefing with SKU actions",
+      "roi": "Half-day prep cut to under an hour"
+    }
+  ],
+  "multiAgent": {
+    "name": "Omnichannel Fulfillment Pod",
+    "description": "Coordinates promise, pick, and exception handling when a customer order can be fulfilled from multiple nodes.",
+    "supervisor": {
+      "name": "Fulfillment Supervisor",
+      "responsibilities": "Chooses optimal node, monitors SLA risk, and re-promises when inventory or labor constraints change.",
+      "routingLogic": "Availability → Inventory Agent; labor/capacity → Store Ops Agent; delay risk → Customer Comms Agent; carrier issue → Logistics Agent."
+    },
+    "subAgents": [
+      {
+        "name": "Inventory Truth Agent",
+        "role": "ATP accuracy",
+        "responsibilities": ["Reconcile ATP", "Reserve inventory", "Detect ghost stock"],
+        "contextHandoff": "Trusted availability + reservation IDs"
+      },
+      {
+        "name": "Store Ops Agent",
+        "role": "Labor-aware pick planning",
+        "responsibilities": ["Estimate pick capacity", "Batch picks", "Flag store overload"],
+        "contextHandoff": "Feasible pick plan or rejection reason"
+      },
+      {
+        "name": "Logistics Agent",
+        "role": "Carrier and route selection",
+        "responsibilities": ["Select service level", "Create labels", "Monitor scans"],
+        "contextHandoff": "Tracking + ETA confidence"
+      },
+      {
+        "name": "Customer Comms Agent",
+        "role": "Proactive CX updates",
+        "responsibilities": ["Send promise changes", "Offer alternatives", "Capture consent"],
+        "contextHandoff": "Customer decision + updated order preferences"
+      }
+    ],
+    "conflictResolution": "If store capacity and inventory disagree, supervisor prefers DC fulfillment; customer-impacting re-promises require CX policy checks; hard failures create human ops tickets."
+  },
+  "workflow": [
+    {
+      "id": "input",
+      "label": "Input",
+      "description": "Order event arrives with cart, promise date, and channel constraints."
+    },
+    {
+      "id": "reason",
+      "label": "Reason",
+      "description": "Supervisor scores fulfillment options by margin, speed, and risk."
+    },
+    {
+      "id": "tools",
+      "label": "Tool Execution",
+      "description": "Reserve stock, assign pick wave, book carrier, and update OMS."
+    },
+    {
+      "id": "hitl",
+      "label": "Human-in-the-Loop",
+      "description": "Ops intervenes on VIP orders, fragile SKUs, or repeated SLA breaches."
+    },
+    {
+      "id": "output",
+      "label": "Output",
+      "description": "Customer gets accurate ETA; inventory and labor systems stay in sync."
+    }
+  ],
+  "integrations": {
+    "apis": ["Shopify/Salesforce Commerce", "Manhattan/OMS", "Narvar", "Segment"],
+    "webhooks": ["Order created/updated", "Shipment scan events", "Return initiated"],
+    "vectorDbs": ["Product catalog embeddings", "Policy/FAQ knowledge base", "Historical promo postmortems"],
+    "legacySystems": ["AS400 inventory", "Store POS clients", "Vendor EDI"],
+    "security": ["PCI scoping", "PII minimization in CX prompts", "Vendor data contracts"]
+  }
+}

@@ -1,0 +1,26 @@
+---
+import BlueprintPage from '../../components/BlueprintPage';
+import CreateBlueprint from '../../components/CreateBlueprint';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getBlueprint, getSlugsByType } from '../../lib/blueprints';
+
+export function getStaticPaths() {
+  return getSlugsByType('company').map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const blueprint = slug ? getBlueprint('company', slug) : undefined;
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+{
+  blueprint ? (
+    <BaseLayout title={blueprint.name} description={blueprint.tagline}>
+      <BlueprintPage client:load blueprint={blueprint} baseUrl={baseUrl} />
+    </BaseLayout>
+  ) : (
+    <BaseLayout title="Create Blueprint">
+      <CreateBlueprint client:load target={slug ?? 'Unknown'} suggestedType="company" variant="page" />
+    </BaseLayout>
+  )
+}
