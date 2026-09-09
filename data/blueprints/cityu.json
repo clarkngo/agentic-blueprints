@@ -4,7 +4,12 @@
   "name": "City University of Seattle",
   "tagline": "Agentic enrollment, advising, and student-success workflows for a career-focused, multi-modality university.",
   "overview": "CityU of Seattle is a private nonprofit university offering 60+ certificate-to-doctorate programs online, on campus, and hybrid for working adults, transfers, military, and international students. Agentic AI can compress advisor response time, transfer-credit evaluation, financial-aid navigation, and at-risk student outreach while keeping admissions and academic decisions under human control.",
-  "opportunityScore": 87,
+  "opportunityFactors": {
+    "processVolume": 21,
+    "errorCost": 19,
+    "implementationFeasibility": 19,
+    "regulatoryHeadroom": 19
+  },
   "painPoints": [
     "Prospects bounce between program fit, tuition/aid, and modality questions before reaching an enrollment advisor",
     "Transfer credit evaluation and transcript intake still create days of lag before a clear path to graduation",

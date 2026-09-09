@@ -4,7 +4,12 @@
   "name": "Police Departments (Washington State)",
   "tagline": "Back-office agentic AI for WA/Seattle-area law enforcement — scoped to what's allowed, nothing that touches surveillance.",
   "overview": "Washington police departments carry heavy administrative load: public records requests, report backlogs, scheduling, and grant compliance. This blueprint is intentionally limited to back-office and administrative agentic AI — records processing, drafting assistance, scheduling, and compliance tracking. It excludes facial recognition, predictive policing, mass surveillance, and any agent that identifies or scores individuals, because those uses are restricted or require separate approval under Washington's facial recognition law (RCW 43.386) and, for Seattle agencies, the Seattle Surveillance Ordinance (SMC 14.18). No agent here touches evidence analysis, biometric matching, or case decision-making.",
-  "opportunityScore": 68,
+  "opportunityFactors": {
+    "processVolume": 20,
+    "errorCost": 17,
+    "implementationFeasibility": 14,
+    "regulatoryHeadroom": 12
+  },
   "painPoints": [
     "Public Records Act (RCW 42.56) requests pile up faster than records staff can review and redact them",
     "Officers lose hours per shift on incident report drafting and administrative paperwork",

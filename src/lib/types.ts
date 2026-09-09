@@ -1,5 +1,16 @@
 export type BlueprintType = 'industry' | 'company';
 
+export interface OpportunityFactors {
+  /** Volume/frequency of repetitive, rules-based work available to automate. 0-25. */
+  processVolume: number;
+  /** Cost of current errors, delays, or rework that agentic AI would reduce. 0-25. */
+  errorCost: number;
+  /** How readily available the data/APIs/tools are for integration. 0-25. */
+  implementationFeasibility: number;
+  /** How much of the workflow is free to automate without extra legal/compliance approval. 0-25. */
+  regulatoryHeadroom: number;
+}
+
 export interface SingleAgent {
   name: string;
   role: string;
@@ -48,7 +59,7 @@ export interface Blueprint {
   name: string;
   tagline: string;
   overview: string;
-  opportunityScore: number;
+  opportunityFactors: OpportunityFactors;
   painPoints: string[];
   strategicImpact: string[];
   singleAgents: SingleAgent[];

@@ -4,7 +4,12 @@
   "name": "Healthcare",
   "tagline": "Automate clinical ops, claims, and care coordination without sacrificing safety.",
   "overview": "Health systems drown in documentation, prior auth, and fragmented EHR workflows. Agentic AI can cut administrative load while keeping clinicians in the loop for high-stakes decisions.",
-  "opportunityScore": 91,
+  "opportunityFactors": {
+    "processVolume": 24,
+    "errorCost": 24,
+    "implementationFeasibility": 18,
+    "regulatoryHeadroom": 17
+  },
   "painPoints": [
     "Prior authorization backlogs delaying care by days",
     "Clinicians spending 2+ hours daily on documentation",

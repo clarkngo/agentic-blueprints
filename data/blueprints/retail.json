@@ -4,7 +4,12 @@
   "name": "Retail",
   "tagline": "Unify merchandising, inventory, and CX with agents that act across the commerce stack.",
   "overview": "Retail margins are squeezed by stockouts, markdown waste, and slow customer service handoffs. Agentic AI connects planning, store ops, and support so decisions move at the speed of demand.",
-  "opportunityScore": 84,
+  "opportunityFactors": {
+    "processVolume": 21,
+    "errorCost": 18,
+    "implementationFeasibility": 20,
+    "regulatoryHeadroom": 20
+  },
   "painPoints": [
     "Buyers react late to demand shifts and promo leakage",
     "Inventory is siloed between DC, store, and marketplace channels",

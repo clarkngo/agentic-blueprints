@@ -9,7 +9,7 @@
     "name",
     "tagline",
     "overview",
-    "opportunityScore",
+    "opportunityFactors",
     "painPoints",
     "strategicImpact",
     "singleAgents",
@@ -23,7 +23,16 @@
     "name": { "type": "string" },
     "tagline": { "type": "string" },
     "overview": { "type": "string" },
-    "opportunityScore": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "opportunityFactors": {
+      "type": "object",
+      "required": ["processVolume", "errorCost", "implementationFeasibility", "regulatoryHeadroom"],
+      "properties": {
+        "processVolume": { "type": "integer", "minimum": 0, "maximum": 25 },
+        "errorCost": { "type": "integer", "minimum": 0, "maximum": 25 },
+        "implementationFeasibility": { "type": "integer", "minimum": 0, "maximum": 25 },
+        "regulatoryHeadroom": { "type": "integer", "minimum": 0, "maximum": 25 }
+      }
+    },
     "painPoints": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
     "strategicImpact": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
     "singleAgents": {

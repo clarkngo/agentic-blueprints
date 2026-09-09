@@ -4,7 +4,12 @@
   "name": "Logistics",
   "tagline": "Turn disruption noise into coordinated, exception-aware execution.",
   "overview": "Carriers and 3PLs lose margin to reactive firefighting across tendering, tracking, and claims. Multi-agent systems can sense disruptions early and replan with human control on costly decisions.",
-  "opportunityScore": 86,
+  "opportunityFactors": {
+    "processVolume": 22,
+    "errorCost": 19,
+    "implementationFeasibility": 17,
+    "regulatoryHeadroom": 21
+  },
   "painPoints": [
     "Dispatchers drown in exception emails and EDI noise",
     "Tender acceptance is inconsistent across lanes and carriers",
