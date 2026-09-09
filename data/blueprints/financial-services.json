@@ -4,7 +4,12 @@
   "name": "Financial Services",
   "tagline": "Compress KYC, underwriting, and ops reviews with auditable agent workflows.",
   "overview": "Banks and fintechs still rely on analysts for document-heavy KYC, credit memos, and exception handling. Agentic systems can draft decisions with full audit trails while humans retain final authority.",
-  "opportunityScore": 88,
+  "opportunityFactors": {
+    "processVolume": 23,
+    "errorCost": 24,
+    "implementationFeasibility": 14,
+    "regulatoryHeadroom": 13
+  },
   "painPoints": [
     "KYC/AML reviews bottlenecked by document chasing",
     "Credit memo preparation takes days of analyst time",

@@ -1,16 +1,24 @@
 import { useEffect, useState } from 'react';
+import { getOpportunityScore } from '../lib/blueprints';
 import type { Blueprint } from '../lib/types';
 
 interface HeroSectionProps {
   blueprint: Blueprint;
 }
 
+const FACTOR_LABELS: { key: keyof Blueprint['opportunityFactors']; label: string }[] = [
+  { key: 'processVolume', label: 'Process volume' },
+  { key: 'errorCost', label: 'Error/compliance cost' },
+  { key: 'implementationFeasibility', label: 'Implementation feasibility' },
+  { key: 'regulatoryHeadroom', label: 'Regulatory headroom' },
+];
+
 export default function HeroSection({ blueprint }: HeroSectionProps) {
   const [score, setScore] = useState(0);
+  const target = getOpportunityScore(blueprint.opportunityFactors);
 
   useEffect(() => {
     let frame = 0;
-    const target = blueprint.opportunityScore;
     const start = performance.now();
     const duration = 900;
 
@@ -23,7 +31,7 @@ export default function HeroSection({ blueprint }: HeroSectionProps) {
 
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [blueprint.opportunityScore]);
+  }, [target]);
 
   return (
     <section className="relative overflow-hidden border-b border-line bg-gradient-to-br from-white/90 via-paper to-mist/60">
@@ -72,6 +80,25 @@ export default function HeroSection({ blueprint }: HeroSectionProps) {
                 style={{ width: `${score}%` }}
               />
             </div>
+            <dl className="mt-5 space-y-2.5 border-t border-line/70 pt-4">
+              {FACTOR_LABELS.map(({ key, label }) => {
+                const value = blueprint.opportunityFactors[key];
+                return (
+                  <div key={key} className="flex items-center gap-3">
+                    <dt className="flex-1 text-xs text-slate">{label}</dt>
+                    <div className="h-1.5 w-16 overflow-hidden rounded-full bg-mist">
+                      <div
+                        className="h-full rounded-full bg-teal/70"
+                        style={{ width: `${(value / 25) * 100}%` }}
+                      />
+                    </div>
+                    <dd className="w-10 text-right font-mono text-xs tabular-nums text-ink-soft">
+                      {value}/25
+                    </dd>
+                  </div>
+                );
+              })}
+            </dl>
             <ul className="mt-6 space-y-2">
               {blueprint.strategicImpact.slice(0, 3).map((item) => (
                 <li key={item} className="text-sm text-ink-soft flex gap-2">

@@ -4,7 +4,12 @@
   "name": "Morse Hydraulics",
   "tagline": "Agentic ops for multi-location hydraulic hose, fittings, and mobile van service.",
   "overview": "Morse Hydraulics specializes in high-pressure hydraulic hoses, fittings, quick connects, greaser systems, and while-you-wait assemblies across CA, WA, OR, and TX. Agentic AI can speed parts identification, cross-location inventory, quote turnaround, and mobile dispatch without replacing counter expertise on safety-critical assemblies.",
-  "opportunityScore": 85,
+  "opportunityFactors": {
+    "processVolume": 16,
+    "errorCost": 15,
+    "implementationFeasibility": 15,
+    "regulatoryHeadroom": 22
+  },
   "painPoints": [
     "Customers need the right hose/fitting match across SAE, metric, BSP, Japanese, and Caterpillar standards under time pressure",
     "Inventory and capacity are fragmented across multiple branches and mobile vans",

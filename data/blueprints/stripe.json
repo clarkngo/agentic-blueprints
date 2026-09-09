@@ -4,7 +4,12 @@
   "name": "Stripe",
   "tagline": "Agentic systems for payments ops, support, and financial crime workflows.",
   "overview": "Stripe’s platform generates dense operational signal across payments, billing, and risk. Agents can compress investigation loops while keeping money-movement actions strictly gated.",
-  "opportunityScore": 93,
+  "opportunityFactors": {
+    "processVolume": 22,
+    "errorCost": 23,
+    "implementationFeasibility": 23,
+    "regulatoryHeadroom": 20
+  },
   "painPoints": [
     "Support and sales engineers reconstruct payment timelines manually",
     "Fraud and disputes require multi-system evidence assembly",

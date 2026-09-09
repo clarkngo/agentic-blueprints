@@ -1,4 +1,13 @@
-import type { Blueprint, BlueprintSummary, BlueprintType } from './types';
+import type { Blueprint, BlueprintSummary, BlueprintType, OpportunityFactors } from './types';
+
+export function getOpportunityScore(factors: OpportunityFactors): number {
+  return (
+    factors.processVolume +
+    factors.errorCost +
+    factors.implementationFeasibility +
+    factors.regulatoryHeadroom
+  );
+}
 
 const modules = import.meta.glob('../../data/blueprints/*.json', { eager: true }) as Record<
   string,
@@ -17,12 +26,12 @@ export function getAllBlueprints(): Blueprint[] {
 
 export function getBlueprintSummaries(): BlueprintSummary[] {
   return getAllBlueprints().map(
-    ({ slug, type, name, tagline, opportunityScore, painPoints }) => ({
+    ({ slug, type, name, tagline, opportunityFactors, painPoints }) => ({
       slug,
       type,
       name,
       tagline,
-      opportunityScore,
+      opportunityScore: getOpportunityScore(opportunityFactors),
       painPoints: painPoints.slice(0, 3),
     }),
   );

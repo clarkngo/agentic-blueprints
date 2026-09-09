@@ -4,7 +4,12 @@
   "name": "BNSF Railway",
   "tagline": "Agentic ops for a 32,500-mile freight network — safer trains, sharper service, faster customer resolution.",
   "overview": "BNSF moves agricultural, industrial, energy, automotive, and intermodal freight across one of North America’s largest rail networks. Agentic AI can compress service exception handling, demurrage disputes, claims assembly, and customer pricing/support loops while keeping safety-critical and regulatory actions under human control.",
-  "opportunityScore": 89,
+  "opportunityFactors": {
+    "processVolume": 22,
+    "errorCost": 22,
+    "implementationFeasibility": 15,
+    "regulatoryHeadroom": 15
+  },
   "painPoints": [
     "Service exceptions and advisories require stitching network, weather, and customer commitments across siloed systems",
     "Demurrage, storage, and cargo claims consume analyst time assembling evidence from multiple portals",

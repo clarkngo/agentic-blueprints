@@ -1,0 +1,169 @@
+{
+  "slug": "police-departments",
+  "type": "industry",
+  "name": "Police Departments (Washington State)",
+  "tagline": "Back-office agentic AI for WA/Seattle-area law enforcement — scoped to what's allowed, nothing that touches surveillance.",
+  "overview": "Washington police departments carry heavy administrative load: public records requests, report backlogs, scheduling, and grant compliance. This blueprint is intentionally limited to back-office and administrative agentic AI — records processing, drafting assistance, scheduling, and compliance tracking. It excludes facial recognition, predictive policing, mass surveillance, and any agent that identifies or scores individuals, because those uses are restricted or require separate approval under Washington's facial recognition law (RCW 43.386) and, for Seattle agencies, the Seattle Surveillance Ordinance (SMC 14.18). No agent here touches evidence analysis, biometric matching, or case decision-making.",
+  "opportunityFactors": {
+    "processVolume": 20,
+    "errorCost": 17,
+    "implementationFeasibility": 14,
+    "regulatoryHeadroom": 12
+  },
+  "painPoints": [
+    "Public Records Act (RCW 42.56) requests pile up faster than records staff can review and redact them",
+    "Officers lose hours per shift on incident report drafting and administrative paperwork",
+    "Shift scheduling, overtime approval, and grant/compliance reporting are manual and spreadsheet-driven"
+  ],
+  "strategicImpact": [
+    "Faster, more consistent Public Records Act response times without changing exemption decisions",
+    "Meaningful reduction in officer time spent on report drafting and paperwork per shift",
+    "Fewer missed grant/compliance deadlines and scheduling conflicts"
+  ],
+  "singleAgents": [
+    {
+      "name": "Public Records Intake Agent",
+      "role": "Classifies and routes incoming RCW 42.56 public records requests, flagging likely exemptions for human review",
+      "trigger": "New public records request received via portal, email, or mail scan",
+      "toolStack": ["Records request portal (e.g. GovQA)", "RMS document search", "RCW 42.56 exemption reference", "Redaction flagging (no auto-release)"],
+      "output": "Triaged request with suggested exemption flags and routing to a records specialist",
+      "roi": "Faster first response and fewer missed statutory deadlines on records requests"
+    },
+    {
+      "name": "Incident Report Drafting Assistant",
+      "role": "Turns an officer's dictated or typed notes into a structured draft incident report",
+      "trigger": "Officer requests a report draft after a call or at end of shift",
+      "toolStack": ["Speech-to-text", "Department report templates", "RMS write-back", "Grammar/consistency check"],
+      "output": "Draft report in department format, awaiting officer review and sign-off",
+      "roi": "Meaningful reduction in per-shift report writing time; no change to what the officer reports"
+    },
+    {
+      "name": "Shift & Overtime Scheduling Agent",
+      "role": "Proposes shift schedules and overtime assignments within labor rules and minimum-staffing requirements",
+      "trigger": "Weekly scheduling cycle or unfilled shift alert",
+      "toolStack": ["Scheduling/HR system", "Union contract rules", "Certification/training status", "SMS/email notify"],
+      "output": "Draft schedule and overtime offer list for a supervisor to approve",
+      "roi": "Fewer unfilled shifts and scheduling errors; supervisor keeps final approval"
+    },
+    {
+      "name": "Grant & Compliance Reporting Agent",
+      "role": "Tracks state/federal grant reporting deadlines and assembles required compliance documentation",
+      "trigger": "Grant reporting period opens or deadline approaches",
+      "toolStack": ["Grant management tracker", "Budget/finance system", "Policy document library", "Calendar/reminders"],
+      "output": "Pre-filled compliance report packet for staff review and submission",
+      "roi": "Fewer missed grant deadlines and reduced staff time on compliance paperwork"
+    }
+  ],
+  "multiAgent": {
+    "name": "Public Disclosure Swarm",
+    "description": "A supervisor-led team that moves a public records request from intake to a redaction-reviewed response, with a human records supervisor making every release decision.",
+    "supervisor": {
+      "name": "Records Supervisor Agent",
+      "responsibilities": "Owns the request lifecycle, sequences intake → search → exemption review → response drafting, and escalates any exemption ambiguity or active-investigation record to a human records supervisor and legal counsel.",
+      "routingLogic": "New request → Intake Agent; document location → Retrieval Agent; possible exemption (RCW 42.56.230, victim/juvenile info, ongoing investigation) → human legal review; routine, unambiguous records → Response Drafting Agent."
+    },
+    "subAgents": [
+      {
+        "name": "Intake Classifier Agent",
+        "role": "Request scoping",
+        "responsibilities": [
+          "Parse the request for date range, subject, and record type",
+          "Identify the responsible unit(s) holding responsive records",
+          "Flag requests naming an ongoing investigation or a minor for mandatory legal review"
+        ],
+        "contextHandoff": "Scoped request definition to the Supervisor"
+      },
+      {
+        "name": "Records Retrieval Agent",
+        "role": "Document location",
+        "responsibilities": [
+          "Search RMS, CAD logs (non-surveillance metadata only), and email archives for responsive records",
+          "Compile a candidate document set with source and date",
+          "Never accesses biometric, facial recognition, or predictive-policing systems"
+        ],
+        "contextHandoff": "Candidate document set to the exemption review step"
+      },
+      {
+        "name": "Exemption Flagging Agent",
+        "role": "Redaction preparation",
+        "responsibilities": [
+          "Highlight likely-exempt content (victim/witness PII, juvenile records, active investigation material) per RCW 42.56.230",
+          "Never finalizes a redaction or release decision",
+          "Prepares a side-by-side original/redacted-suggestion view for staff"
+        ],
+        "contextHandoff": "Flagged document set with suggested redactions, unresolved"
+      },
+      {
+        "name": "Response Drafting Agent",
+        "role": "Correspondence",
+        "responsibilities": [
+          "Draft the response letter citing applicable exemptions",
+          "Track statutory response deadlines",
+          "Log final disposition once a human approves release"
+        ],
+        "contextHandoff": "Draft response package for records supervisor sign-off"
+      }
+    ],
+    "conflictResolution": "Any request touching an active investigation, a minor, or a victim/witness routes to a human records supervisor and legal counsel before any release. No agent in this swarm makes a final redaction or release decision. Exemption disagreements between agents default to the most restrictive (least disclosed) suggestion pending human review."
+  },
+  "workflow": [
+    {
+      "id": "input",
+      "label": "Input",
+      "description": "Capture a public records request, report-drafting request, scheduling need, or grant deadline from staff or the public portal."
+    },
+    {
+      "id": "reason",
+      "label": "Reason",
+      "description": "Supervisor agent classifies the task type and checks it against the allowed-use list before routing — anything resembling surveillance, biometric matching, or individual risk scoring is rejected, not routed."
+    },
+    {
+      "id": "tools",
+      "label": "Tool Execution",
+      "description": "Agents search records, draft text, or assemble schedules/compliance packets using only administrative systems — no facial recognition, ALPR analytics, or predictive-policing tools are in the toolchain."
+    },
+    {
+      "id": "hitl",
+      "label": "Human-in-the-Loop",
+      "description": "A records supervisor, watch commander, or officer reviews and approves every report, redaction, schedule, or disclosure before it is final."
+    },
+    {
+      "id": "output",
+      "label": "Output",
+      "description": "Approved report, records response, schedule, or compliance filing is released; the underlying request/approval trail is logged for audit."
+    }
+  ],
+  "integrations": {
+    "apis": [
+      "Records Management System (RMS)",
+      "Public records request portal (e.g. GovQA)",
+      "HR/scheduling system",
+      "Grant management/finance system",
+      "Email (department records unit inbox)"
+    ],
+    "webhooks": [
+      "New public records request submitted",
+      "Report finalized/signed off",
+      "Unfilled shift or overtime alert",
+      "Grant reporting deadline approaching"
+    ],
+    "vectorDbs": [
+      "RCW 42.56 (Public Records Act) exemption reference",
+      "Department policy and procedure manual",
+      "Union contract and scheduling rules",
+      "Grant program compliance requirements"
+    ],
+    "legacySystems": [
+      "Paper case files and scanned archives",
+      "Fax-based records intake",
+      "Legacy CAD/RMS terminals"
+    ],
+    "security": [
+      "No facial recognition, biometric matching, or predictive-policing agents — excluded per RCW 43.386 and department policy",
+      "No new surveillance-technology use without Council-approved Surveillance Impact Report per Seattle Municipal Code 14.18 (Seattle-area agencies)",
+      "Every redaction, disclosure, and report requires human sign-off before release",
+      "Role-based access separating records/admin agents from CAD, evidence, and investigative systems",
+      "Full audit trail of every agent suggestion and human approval/override"
+    ]
+  }
+}

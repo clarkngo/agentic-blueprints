@@ -4,7 +4,12 @@
   "name": "Shopify",
   "tagline": "Agentic ops for merchants and platform teams across support, risk, and growth.",
   "overview": "Shopify sits at the center of merchant commerce data. Internal agentic systems can accelerate Trust & Safety reviews, merchant support, and growth experiments while preserving merchant trust.",
-  "opportunityScore": 90,
+  "opportunityFactors": {
+    "processVolume": 23,
+    "errorCost": 21,
+    "implementationFeasibility": 23,
+    "regulatoryHeadroom": 21
+  },
   "painPoints": [
     "Merchant support volume spikes around launches and peak seasons",
     "Risk reviews require stitching store, payment, and behavioral signals",
